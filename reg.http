@@ -1,0 +1,7 @@
+POST http://localhost:3000/api/register
+
+{
+    "name": "calkwalk",
+    "email: "calkwalk@163.com",
+    "password": "abc123456"
+}
