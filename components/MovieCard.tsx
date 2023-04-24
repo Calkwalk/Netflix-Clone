@@ -1,4 +1,6 @@
 import React from 'react';
+import Image from 'next/image';
+
 import FavoriteButton from './FavoriteButton';
 import PlayButton from './PlayButton';
 import useInfoModal from '@/hooks/useInfoModal';
@@ -17,7 +19,7 @@ const MovieCard: React.FC<MovieCardProps> = ({data}) => {
         <div className='group bg-zinc-900 roundend-md relative h-[60vw] sm:h[30vh] md:h-[18vh] lg:h-[12vw]'>
 
             {/* thumbnail origin */}
-            <img 
+            <Image 
                 className='cursor-pointer 
                     object-cover 
                     transition 
@@ -49,7 +51,7 @@ const MovieCard: React.FC<MovieCardProps> = ({data}) => {
                     group-hover:opacity-100'
                 >
                     {/* thumbnial hero */}
-                    <img className='cursor-pointer object-cover transition duration shadow-xl rounded-t-md w-full h-[60vw] sm:h[30vh] md:h-[18vh] lg:h-[12vw]' 
+                    <Image className='cursor-pointer object-cover transition duration shadow-xl rounded-t-md w-full h-[60vw] sm:h[30vh] md:h-[18vh] lg:h-[12vw]' 
                         src={data?.thumbnailUrl} alt='Thumbnail' />
                     
                     {/* movie info */}

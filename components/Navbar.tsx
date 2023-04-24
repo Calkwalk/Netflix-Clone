@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
 
 import NavbarItem from './NavbarItem';
 import MobileMenu from './MobileMenu';
@@ -55,7 +56,7 @@ const Navbar = () => {
       }>
         
         {/* Logo */}
-        <img className='h-4 lg:h-7' src='/images/logo.png' alt='Logo' />
+        <Image className='h-4 lg:h-7' src='/images/logo.png' alt='Logo' />
       
 
         {/* Nav items for lg screen */}
@@ -86,7 +87,7 @@ const Navbar = () => {
 
           <div onClick={toggleAccountMenu} className='flex flex-row items-center gap-2 cursor-pointer realtive'>
             <div className='w-6 h-6 lg:w-10 lg:h-10 rounded-full overflow-hidden'>
-              <img src='/images/default-blue.png' alt='Profile' />
+              <Image src='/images/default-blue.png' alt='Profile' />
             </div>
             <BsChevronDown className={`text-white transition ${showAccountMenu ? 'rotate-180' : 'rotate-0'}`} />
             <AccountMenu visible={showAccountMenu} />

@@ -1,5 +1,7 @@
 import { getSession } from 'next-auth/react';
 import { NextPageContext } from 'next';
+import Image from 'next/image';
+
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/router';
 
@@ -44,7 +46,7 @@ const Profile = () => {
                 group-hover:border-white
                 overflow-hidden
               '>
-                <img className='rounded-md' src='/images/default-blue.png' alt='Profile' /> 
+                <Image className='rounded-md' src='/images/default-blue.png' alt='Profile' /> 
               </div>
 
               <div className='mt-4 text-gray-400 text-2xl text-center'>

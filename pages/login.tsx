@@ -2,6 +2,8 @@ import React, { useCallback, useState } from 'react'
 import axios from 'axios';
 import Input from '@/components/Input'
 import Head from 'next/head';
+import Image from 'next/image';
+
 import { signIn, SignInResponse } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
@@ -26,8 +28,8 @@ const Login = () => {
     }, [])
 
     const login = useCallback(async () => {
+        if(isLoading)  return;
         try {
-            if(isLoading)  return;
             setIsLoading(true)
             const resut= await signIn('credentials', {
                 email,
@@ -43,11 +45,11 @@ const Login = () => {
         } finally {
             setIsLoading(false)
         }
-    },[email, password, router])
+    },[email, password, router, isLoading])
 
     const register = useCallback(async () => {
+        if(isLoading)  return;
         try {
-            if(isLoading)  return;
             setIsLoading(true)
             const res = await axios.post('/api/register', {
                 email,
@@ -60,7 +62,7 @@ const Login = () => {
         } finally {
             setIsLoading(false)
         }
-    }, [email, name, password, login])
+    }, [email, name, password, isLoading])
 
     return (
         <>
@@ -73,7 +75,7 @@ const Login = () => {
             <div className='relative h-full w-full bg-[url("/images/hero.jpg")] bg-no-repeat bg-center bg-fixed bg-cover'>
                 <div className='bg-black w-full h-full lg:bg-opacity-50'>
                     <nav className='px-12 py-5'>
-                        <img src='/images/logo.png' alt='Logo' className='h-12' />
+                        <Image src='/images/logo.png' alt='Logo' className='h-12' />
                     </nav>
 
                     <div className="flex justify-center">
