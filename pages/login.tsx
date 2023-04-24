@@ -7,10 +7,13 @@ import { useRouter } from 'next/router';
 
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
+import { AiOutlineLoading } from 'react-icons/ai';
 
 const Login = () => {
 
     const router = useRouter();
+    
+    const [isLoading, setIsLoading] = useState(false);
 
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -24,6 +27,8 @@ const Login = () => {
 
     const login = useCallback(async () => {
         try {
+            if(isLoading)  return;
+            setIsLoading(true)
             const resut= await signIn('credentials', {
                 email,
                 password,
@@ -35,11 +40,15 @@ const Login = () => {
 
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false)
         }
     },[email, password, router])
 
     const register = useCallback(async () => {
         try {
+            if(isLoading)  return;
+            setIsLoading(true)
             const res = await axios.post('/api/register', {
                 email,
                 name,
@@ -48,6 +57,8 @@ const Login = () => {
             setVariant('login');
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false)
         }
     }, [email, name, password, login])
 
@@ -87,9 +98,12 @@ const Login = () => {
                                     label='Password' 
                                     type='password' value={password} />
                             </div>
-                            <button className='bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition'
+                            <button 
+                                className='bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition
+                                    flex items-center justify-center'
                                 onClick={ variant === 'login' ? login : register }
                             >
+                                { isLoading && <AiOutlineLoading className='text-white mr-4 animate-spin transition' size={16}  /> }
                                 {variant == 'login' ? 'Login' : 'Sign Up'}
                             </button>
                             
@@ -110,8 +124,9 @@ const Login = () => {
 
                             <p className='text-neutral-500 mt-12'>
                                 {variant === 'login' ? 'First time using Netflix?' : 'Already have an account?'}
-                                <span className='text-white ml-1 hover:underlne cursor-pointer' onClick={toggleVariant} >
-                                    {variant === 'login' ? 'Create an account' : 'Sign in'}
+                                <span className='text-white ml-1 hover:underlne cursor-pointer'  onClick={toggleVariant} >
+                                    
+                                    { variant === 'login' ? 'Create an account' : 'Sign in' }
                                 </span>
                             </p>
                         </div>

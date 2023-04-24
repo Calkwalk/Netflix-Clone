@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
+
 import { BsFillPlayFill } from 'react-icons/bs';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 interface PlayButtonProps {
     movieId: string;
@@ -9,6 +11,9 @@ interface PlayButtonProps {
 
 const PlayButton: React.FC<PlayButtonProps> = ({movieId, shape ='circle'}) => {
     const router = useRouter();
+
+    const [isLoading, setIsLoading] = useState(false)
+
     if(shape == 'rectange') {
         return (
             <button 
@@ -24,11 +29,20 @@ const PlayButton: React.FC<PlayButtonProps> = ({movieId, shape ='circle'}) => {
      } else {
         return (
             <div 
-                onClick={()=>router.push(`/watch/${movieId}`)}
+                onClick={()=>{
+                    setIsLoading(true);
+                    setTimeout(() => {
+                        router.push(`/watch/${movieId}`);
+                        setIsLoading(false)
+                    }, 300);
+                    
+                    
+                }}
                 className='cursor-pointer w-6 h-6 lg:w-10 lg:h-10
                     bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300' 
             >
-                <BsFillPlayFill className='ml-1' size={30}/>
+                { isLoading && <AiOutlineLoading3Quarters className='animate-spin transition' size={16}  /> }
+                { !isLoading && <BsFillPlayFill className='ml-1' size={30}/> }
             </div>
         );
      }

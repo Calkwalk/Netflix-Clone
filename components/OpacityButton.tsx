@@ -8,6 +8,7 @@ interface OpacityButtonProps {
 }
 
 const OpacityButton:React.FC<OpacityButtonProps> = ( {Icon, title, onClick}) => {
+
   return (
     <button onClick={onClick}
       className='text-white 
